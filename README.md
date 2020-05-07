@@ -1,19 +1,57 @@
-# *git 仓库创建与本地拉取*
+# 顺序零散记录
 
-## **1，在github上建立自己的仓库**
 
-## **2，开始拉取**
 
-- 本地创建newFile文件夹
-- git bash 打开相应的路径
-- git init
-- git config --global user.name"yourname"
-- git config --global user.email"your@email.com"
-- ssh-keygen -t rsa -C "your@email.com" 
-- 根据提示路径找到 id_rsa和id_rsa.pub 两个文件所在路径，copy  id_rsa.pub 内容
-- 打开github，登录你的账户，进入设置， 进入ssh设置找到SSH keys设置， 在key种将刚刚复制的粘贴进去
-- git add README.md
-- git commit -m "first commit"
-- git remote add origin git@github.com:jackuboot/nodejsStudy.git
-- git push -u origin master
+## 模块导出
 
+- 模块导出的永远是module.exports，moudle.exports 赋值以后，相当于砍断了 和 exports 之间默认建立的连接
+
+- exports因此变得只能模块内使用，对外暴露的是moule.exports新的指引
+
+	
+
+## 模块路径
+
+- 文件即模块，获取文件路径，即是获取模块属性
+- 在 Node.js 模块系统中，每个文件都被视为一个独立的模块
+- 获取文件路径也就是获取模块路径
+- 查看模块属性就知道了
+- filename (当前文件所在路径[绝对路径] + 文件名) ;  dirname (当前文件所在路径[绝对路径])
+
+
+
+## 环境变量打印
+
+- process.env.Path 打印环境变量
+
+
+
+## 模块缓存的注意事项
+
+- 模块是基于其解析的文件名进行缓存的。 由于调用模块的位置的不同，模块可能被解析成不同的文件名（比如从 `node_modules` 目录加载），这样就不能保证 `require('foo')` 总能返回完全相同的对象。
+
+	
+
+## concat方法
+
+- concat 方法是安全的连接方法
+* 并没有改变源数组
+
+
+
+## 模块封装器
+
+在执行模块代码之前，Node.js 会使用一个如下的函数封装器将其封装：
+
+```js
+(function(exports, require, module, __filename, __dirname) {
+// 模块的代码实际上在这里
+});
+```
+
+通过这样做，Node.js 实现了以下几点：
+
+- 它保持了顶层的变量（用 `var`、 `const` 或 `let` 定义）作用在模块范围内，而不是全局对象。
+- 它有助于提供一些看似全局的但实际上是模块特定的变量，例如：
+	- 实现者可以用于从模块中导出值的 `module` 和 `exports` 对象。
+	- 包含模块绝对文件名和目录路径的快捷变量 `__filename` 和 `__dirname` 。
