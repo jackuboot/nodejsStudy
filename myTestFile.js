@@ -50,10 +50,10 @@ console.log("程序运行入口8",module.paths)            //[ 'E:\\GIT_NODE_SUD
 let arryA = ['a','b','c']
 let arryB = ['c','d','e']
 arryA.concat(arryB)
-console.log(arryA)
-console.log(arryB)
+console.log("arryA===",arryA)
+console.log("arryB===",arryB)
 arryA = arryA.concat(arryB)
-console.log(arryA)
+console.log("合并==",arryA)
 
 
 
@@ -103,3 +103,20 @@ console.log(exports.a)
 // 手动重新建立关系
 module.exports = exports
 console.log(module.exports) // "aaa"作废了
+
+
+async function test() {
+	console.log("异步函数")
+}
+
+// test().then(res=>{
+// 	console.log("异步回调")
+// })
+
+async function bbb(){
+	await test()
+}
+
+bbb().then(r => {})
+
+console.log("hahahh")
